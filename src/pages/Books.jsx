@@ -74,9 +74,9 @@ const Books = () => {
               onChange={(e) => setFilterStatus(e.target.value)}
             >
               <MenuItem value="all">Wszystkie</MenuItem>
-              <MenuItem value="dostępna">Dostępne</MenuItem>
-              <MenuItem value="wypożyczona">Wypożyczone</MenuItem>
-              <MenuItem value="zarezerwowana">Zarezerwowane</MenuItem>
+              <MenuItem value="AVAILABLE">Dostępne</MenuItem>
+              <MenuItem value="LOANED">Wypożycone</MenuItem>
+              <MenuItem value="RESERVED">Zarezerwowane</MenuItem>
             </Select>
           </FormControl>
         </div>

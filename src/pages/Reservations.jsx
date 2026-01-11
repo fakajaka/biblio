@@ -67,18 +67,18 @@ const Reservations = () => {
                   Autor: {reservation.book?.author || 'Nieznany'}
                 </p>
                 <p className="reservation-date">
-                  Data rezerwacji: {new Date(reservation.createdAt).toLocaleDateString('pl-PL')}
+                  Data rezerwacji: {new Date(reservation.reservationDate).toLocaleDateString('pl-PL')}
                 </p>
                 <div className={`reservation-status status-${reservation.status}`}>
                   <Chip 
-                    label={reservation.status === 'dostępna' ? 'Aktywna' : reservation.status === 'wypożyczona' ? 'Wypożyczona' : reservation.status === 'anulowana' ? 'Anulowana' : 'Zakończona'} 
-                    color={reservation.status === 'dostępna' ? 'primary' : 'default'} 
+                    label={reservation.status === 'AVAILABLE' ? 'Aktywna' : reservation.status === 'LOANED' ? 'Wypożyczona' : reservation.status === 'CANCELLED' ? 'Anulowana' : 'Zakończona'} 
+                    color={reservation.status === 'AVAILABLE' ? 'primary' : 'default'} 
                     size="small" 
                   />
                 </div>
               </div>
               
-              {reservation.status === 'dostępna' && (
+              {reservation.status === 'AVAILABLE' && (
                 <Button 
                   variant="outlined"
                   color="error"

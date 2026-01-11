@@ -6,6 +6,7 @@ import {
   deleteBook,
   getReservations,
   cancelReservation,
+  completeReservation,
 } from "../services/api";
 import BookForm from "../components/BookForm";
 import Button from "@mui/material/Button";
@@ -44,6 +45,7 @@ const Admin = () => {
     setLoading(true);
     try {
       const data = await getReservations();
+      console.log("Wszystkie rezerwacje:", data);
       setReservations(data);
     } catch (error) {
       console.error("Błąd ładowania rezerwacji:", error);
@@ -97,6 +99,16 @@ const Admin = () => {
       loadReservations();
     } catch (error) {
       alert("Nie udało się anulować rezerwacji");
+      console.error(error);
+    }
+  };
+
+  const handleCompleteReservation = async (id) => {
+    try {
+      await completeReservation(id);
+      loadReservations();
+    } catch (error) {
+      alert("Nie udało się zatwierdzić wypożyczenia");
       console.error(error);
     }
   };
@@ -169,8 +181,8 @@ const Admin = () => {
                       <td>{book.year}</td>
                       <td>
                         <Chip 
-                          label={book.status === 'dostępna' ? 'Dostępna' : book.status === 'wypożyczona' ? 'Wypożyczona' : 'Zarezerwowana'} 
-                          color={book.status === 'dostępna' ? 'success' : book.status === 'wypożyczona' ? 'error' : 'warning'} 
+                          label={book.status === 'AVAILABLE' ? 'Dostępna' : book.status === 'LOANED' ? 'Wypożyczona' : 'Zarezerwowana'} 
+                          color={book.status === 'AVAILABLE' ? 'success' : book.status === 'LOANED' ? 'error' : 'warning'} 
                           size="small" 
                         />
                       </td>
@@ -223,28 +235,49 @@ const Admin = () => {
                       <td>{reservation.user?.username || "Nieznany"}</td>
                       <td>{reservation.book?.title || "Nieznana"}</td>
                       <td>
-                        {new Date(reservation.createdAt).toLocaleDateString(
+                        {new Date(reservation.reservationDate).toLocaleDateString(
                           "pl-PL"
                         )}
                       </td>
                       <td>
-                        <Chip 
-                          label={reservation.status === 'aktywna' ? 'Aktywna' : reservation.status === 'cancelled' ? 'Anulowana' : 'Wykonana'} 
-                          color={reservation.status === 'aktywna' ? 'primary' : 'default'} 
-                          size="small" 
+                        <Chip
+                          label={
+                            reservation.status === "COMPLETED"
+                              ? "Wykonana"
+                              : reservation.status === "CANCELED"
+                              ? "Anulowana"
+                              : "Zarezerwowana"
+                          }
+                          color={
+                            reservation.status === "COMPLETED"
+                              ? "success"
+                              : reservation.status === "CANCELED"
+                              ? "default"
+                              : "primary"
+                          }
+                          size="small"
                         />
                       </td>
                       <td className="actions">
-                        {reservation.status === "aktywna" && (
-                          <Button
-                            variant="outlined"
-                            color="error"
-                            onClick={() =>
-                              handleCancelReservation(reservation.id)
-                            }
-                          >
-                            Anuluj
-                          </Button>
+                        {(reservation.status === "RESERVED" || !reservation.status) && (
+                          <>
+                            <Button
+                              variant="outlined"
+                              color="success"
+                              onClick={() => handleCompleteReservation(reservation.id)}
+                            >
+                              Wypożycz
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              onClick={() =>
+                                handleCancelReservation(reservation.id)
+                              }
+                            >
+                              Anuluj
+                            </Button>
+                          </>
                         )}
                       </td>
                     </tr>

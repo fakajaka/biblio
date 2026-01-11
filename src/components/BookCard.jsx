@@ -12,11 +12,11 @@ const BookCard = ({ book, onReservationChange }) => {
 
   const getStatusText = (status) => {
     switch(status) {
-      case 'dostępna':
+      case 'AVAILABLE':
         return 'Dostępna';
-      case 'wypożyczona':
+      case 'LOANED':
         return 'Wypożyczona';
-      case 'zarezerwowana':
+      case 'RESERVED':
         return 'Zarezerwowana';
       default:
         return status;
@@ -59,7 +59,7 @@ const BookCard = ({ book, onReservationChange }) => {
         <div className={`book-status`}>
           <Chip 
             label={getStatusText(book.status)} 
-            color={book.status === 'dostępna' ? 'success' : book.status === 'wypożyczona' ? 'error' : 'info'} 
+            color={book.status === 'AVAILABLE' ? 'success' : book.status === 'LOANED' ? 'error' : 'info'} 
             size="small" 
           />
         </div>
@@ -70,7 +70,7 @@ const BookCard = ({ book, onReservationChange }) => {
           </div>
         )}
 
-        {book.status === 'dostępna' && user && (
+        {book.status === 'AVAILABLE' && user && (
           <Button 
             variant="contained"
             color="primary"

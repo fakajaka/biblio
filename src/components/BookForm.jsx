@@ -12,7 +12,7 @@ const BookForm = ({ book, onSave, onCancel }) => {
     title: '',
     author: '',
     year: '',
-    status: 'dostępna'
+    status: 'AVAILABLE'
   });
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const BookForm = ({ book, onSave, onCancel }) => {
         title: book.title || '',
         author: book.author || '',
         year: book.year || '',
-        status: book.status || 'dostępna'
+        status: book.status || 'AVAILABLE'
       });
     }
   }, [book]);
@@ -95,9 +95,9 @@ const BookForm = ({ book, onSave, onCancel }) => {
                 label="Status"
                 onChange={handleChange}
               >
-                <MenuItem value="dostępna">Dostępna</MenuItem>
-                <MenuItem value="wypożyczona">Wypożyczona</MenuItem>
-                <MenuItem value="zarezerwowana">Zarezerwowana</MenuItem>
+                <MenuItem value="AVAILABLE">Dostępna</MenuItem>
+                <MenuItem value="LOANED">Wypożyczona</MenuItem>
+                <MenuItem value="RESERVED">Zarezerwowana</MenuItem>
               </Select>
             </FormControl>
           </div>

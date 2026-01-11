@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Dodawanie tokenu do każdego żądania
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -24,8 +23,8 @@ api.interceptors.request.use(
 );
 
 // Autoryzacja
-export const login = async (username, password) => {
-  const response = await api.post('/auth/login', { username, password });
+export const register = async (username, password, email) => {
+  const response = await api.post('/auth/register', { username, password, email });
   return response.data;
 };
 
@@ -77,7 +76,12 @@ export const createReservation = async (bookId) => {
 };
 
 export const cancelReservation = async (id) => {
-  const response = await api.delete(`/reservations/${id}`);
+  const response = await api.patch(`/reservations/${id}/cancel`);
+  return response.data;
+};
+
+export const completeReservation = async (id) => {
+  const response = await api.patch(`/reservations/${id}/complete`);
   return response.data;
 };
 
