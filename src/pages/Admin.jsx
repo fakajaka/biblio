@@ -7,6 +7,7 @@ import {
   getReservations,
   cancelReservation,
   completeReservation,
+  getStats,
 } from "../services/api";
 import BookForm from "../components/BookForm";
 import Button from "@mui/material/Button";
@@ -17,6 +18,7 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState("books");
   const [books, setBooks] = useState([]);
   const [reservations, setReservations] = useState([]);
+  const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(false);
   const [editingBook, setEditingBook] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -24,8 +26,10 @@ const Admin = () => {
   useEffect(() => {
     if (activeTab === "books") {
       loadBooks();
-    } else {
+    } else if (activeTab === "reservations") {
       loadReservations();
+    } else if (activeTab === "stats") {
+      loadStats();
     }
   }, [activeTab]);
 
@@ -45,10 +49,21 @@ const Admin = () => {
     setLoading(true);
     try {
       const data = await getReservations();
-      console.log("Wszystkie rezerwacje:", data);
       setReservations(data);
     } catch (error) {
       console.error("Błąd ładowania rezerwacji:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadStats = async () => {
+    setLoading(true);
+    try {
+      const data = await getStats();
+      setStats(data);
+    } catch (error) {
+      console.error("Błąd ładowania statystyk:", error);
     } finally {
       setLoading(false);
     }
@@ -129,6 +144,12 @@ const Admin = () => {
           onClick={() => setActiveTab("reservations")}
         >
           Rezerwacje
+        </Button>
+        <Button
+          variant={activeTab === "stats" ? "contained" : "outlined"}
+          onClick={() => setActiveTab("stats")}
+        >
+          Statystyki
         </Button>
       </div>
 
@@ -282,6 +303,40 @@ const Admin = () => {
                       </td>
                     </tr>
                   ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === "stats" && (
+        <div className="admin-section">
+          <h2>Statystyki najczęściej rezerwowanych książek</h2>
+          {loading ? (
+            <div className="loading">Ładowanie...</div>
+          ) : (
+            <div className="stats-table">
+              <table style={{ width: "50%", margin: "auto" }}>
+                <thead>
+                  <tr>
+                    <th>Tytuł książki</th>
+                    <th>Liczba rezerwacji</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(stats).length > 0 ? (
+                    Object.entries(stats).map(([title, count]) => (
+                      <tr key={title}>
+                        <td>{title}</td>
+                        <td style={{ fontWeight: "bold" }}>{count}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="2">Brak danych statystycznych</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

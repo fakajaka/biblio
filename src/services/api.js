@@ -85,4 +85,9 @@ export const completeReservation = async (id) => {
   return response.data;
 };
 
+export const getStats = async () => {
+  const response = await api.get('/reservations/stats');
+  return response.data;
+};
+
 export default api;
