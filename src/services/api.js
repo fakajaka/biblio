@@ -28,11 +28,6 @@ export const register = async (username, password, email) => {
   return response.data;
 };
 
-export const register = async (username, password, email) => {
-  const response = await api.post('/auth/register', { username, password, email });
-  return response.data;
-};
-
 // Książki
 export const getBooks = async () => {
   const response = await api.get('/books');
