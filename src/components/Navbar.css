@@ -1,0 +1,49 @@
+.navbar {
+  background: #2c3e50;
+  padding: 1rem 2rem;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-link {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.navbar-link:hover {
+  background: #34495e;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-username {
+  color: white;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 0.5rem;
+}

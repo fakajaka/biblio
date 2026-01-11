@@ -1,0 +1,52 @@
+.books-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.books-header {
+  margin-bottom: 2rem;
+}
+
+.books-header h1 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.books-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading-container,
+.error-container,
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error-container {
+  color: #c33;
+}
+
+@media (max-width: 768px) {
+  .books-container {
+    padding: 1rem;
+  }
+  
+  .books-filters {
+    flex-direction: column;
+  }
+  
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

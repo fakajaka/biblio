@@ -1,0 +1,59 @@
+.book-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.book-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.book-cover {
+  background: #667eea;
+  padding: 3rem;
+  text-align: center;
+}
+
+.book-placeholder {
+  font-size: 3rem;
+  color: white;
+}
+
+.book-info {
+  padding: 1.5rem;
+}
+
+.book-title {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.book-author,
+.book-year {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.book-status {
+  margin-top: 0.5rem;
+}
+
+.book-message {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.book-message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.book-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
