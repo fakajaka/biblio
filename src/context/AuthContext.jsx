@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Sprawdzenie czy użytkownik jest zalogowany
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
