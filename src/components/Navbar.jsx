@@ -47,7 +47,7 @@ const Navbar = () => {
                 {user.username} {isAdmin() && '(Admin)'}
               </span>
               <Button variant="contained" onClick={handleLogout}>
-                Wyloguj
+                Wyloguj się
               </Button>
             </div>
           ) : (
